@@ -1,0 +1,9 @@
+---
+layout: post
+title:  "Starting Jekyll"
+date:   2021-01-09
+categories: post
+permalink: /:categories/:title.html
+author: "Quade Kirby"
+---
+ I guess I should start with all the edits I've made to Jekyll to make it more accomidating.
