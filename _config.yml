@@ -21,7 +21,7 @@
 title: OrangeHoopla
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description 
+  All my Homies love Jekyll 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "OrangeHoopla.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb

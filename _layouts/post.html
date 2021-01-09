@@ -1,6 +1,9 @@
 ---
 layout: default
+author: "Quade Kirby"
 ---
-<p>{{ page.date }} - Written by {{ page.author }}</p>
+
 
 {{ content }}
+<br>
+<p>{{ page.date }} - Written by {{ page.author | layout.author }}</p>
