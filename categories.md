@@ -1,6 +1,6 @@
 ---
 layout: categories
-title: Categories
-permalink: /categories/
+title: Projects
+permalink: /projects/
 robots: noindex
 ---
