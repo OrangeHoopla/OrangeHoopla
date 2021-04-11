@@ -1,0 +1,30 @@
+---
+title:  "I'am 4 Farmerrrrr!"
+date:   2021-04-11 16:03:53
+categories: [NoobCTF-0x1]
+tags: [ctf,crypto]
+---
+Probably one of the easier problems since we can assume the cipher is farmer related and the passcode is `noob` to decode the string
+```
+I watched this video tutorial but i don't understand what it takes to be a FARMER. video
+
+I am noob can you help me??
+
+Remember, noob can be a secret to your valuable plant
+
+n+FP9N5Mo17rJQOmEWXU3/Pm4HFMTtb/3+iN+brp8Nk=
+```
+hints at using seed as the means to decrypt the message
+using 
+
+the command `openssl` we can decrypt the message
+
+```bash
+echo 'n+FP9N5Mo17rJQOmEWXU3/Pm4HFMTtb/3+iN+brp8Nk=' > crypt.txt
+openssl seed-cbc -d -in crypt.txt -out answer
+cat answer
+
+
+```
+
+giving the flag `noob{s33d_encryp7_1sn't_1t?}`
