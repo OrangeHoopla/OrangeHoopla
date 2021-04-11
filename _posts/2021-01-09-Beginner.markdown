@@ -1,0 +1,87 @@
+---
+title:  "Beginner"
+date:   2021-01-10 11:03:53
+categories: [google-ctf-2020]
+tags: [ctf, reverse, gdb]
+---
+
+Past me can tell you this this was anything but easy or for beginners like google describes. First thing we should do is to `wget` the attachment that google provies then see what file type it is my using `file` on what we downloaded which tells us that its a zip file. Okay to make this easier we can rename the file to something.zip my using `mv` after that just use `unzip` which gives us `a.out` which most people know is the default executable that c++ makes. So lets run it after we make it executable `chmod +x a.out`.
+
+![title](/images/beginner/title.png)
+
+![title](/images/beginner/first.png)
+
+so obiously that wasn't going to work so maybe we should use `grep`, `ptrace` or `strace` commands and see if we can read some of the assembly code. Sadly none of those worked, so the next step was to search the internet and it looked like everyone was using a tool called `Ghidra` to show the source code from this executable.
+
+![ghidra](/images/beginner/Ghidra.png)
+
+This is actually a really cool tool used by the NSA if i remember correctly this was released to the public because a hacker took it from them. How ironic.
+
+![ghidra](/images/beginner/decompiled.png)
+
+![ghidra](/images/beginner/assemble.png)
+
+So now we have a general idea of what the program does 
+
+
+1. Input string is read in, placed into floating point register XMM0
+2. Register is shuffled using SHUFFLE constant
+3. Register is added with ADD32 constant
+4. Register is xord with XOR constant
+5. Original input string is compared with the new shuffled/added/xord string
+6. If previous values are equal, first four characters are compared with CTF{
+7. If previous values are equal, flag is correct
+
+
+to solve this there is a python library that we can used called `angr` which calls for a virtual environment
+we can use `python3 -m venv angr`
+`source angr/bin/activate`
+`python3 -m pip install angr`
+
+
+using a python script
+
+```python
+import angr
+import claripy
+
+FLAG_LEN = 15
+STDIN_FD = 0
+
+base_addr = 0x100000 # To match addresses to Ghidra
+
+proj = angr.Project("./a.out", main_opts={'base_addr': base_addr}) 
+
+flag_chars = [claripy.BVS('flag_%d' % i, 8) for i in range(FLAG_LEN)]
+flag = claripy.Concat( *flag_chars + [claripy.BVV(b'\n')]) # Add \n for scanf() to accept the input
+
+state = proj.factory.full_init_state(
+        args=['./a.out'],
+        add_options=angr.options.unicorn,
+        stdin=flag,
+)
+
+# Add constraints that all characters are printable
+for k in flag_chars:
+    state.solver.add(k >= ord('!'))
+    state.solver.add(k <= ord('~'))
+
+simgr = proj.factory.simulation_manager(state)
+find_addr  = 0x0010111d # SUCCESS
+avoid_addr = 0x00101100 # FAILURE
+simgr.explore(find=find_addr, avoid=avoid_addr)
+
+if (len(simgr.found) > 0):
+    for found in simgr.found:
+        print(found.posix.dumps(STDIN_FD))
+
+```
+we can get the flag `CTF{S1MDf0rM3!}`
+
+
+
+
+
+this writeup referenced [CTFTIME][Dvd848] writeup by Dvd848
+
+[Dvd848]:	https://github.com/Dvd848/CTFs/blob/master/2020_GoogleCTF/Beginner.md

