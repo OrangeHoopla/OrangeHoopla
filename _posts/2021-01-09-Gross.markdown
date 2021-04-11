@@ -1,0 +1,25 @@
+---
+title:  "Gross"
+date:   2021-04-11 13:03:53
+categories: [NoobCTF-0x1]
+tags: [ctf,crypto]
+---
+
+```
+Cipher: OQWKWPUVMYTIUSSTHHPI
+
+Keep this: 12345 , will help you. Flag format: noob{FLAG}
+
+Author: D3v1LaL
+```
+Gross was supposed to hint at it being the `Gronsfeld Cipher`
+a type of substition cipher based off of a matrix and key
+
+
+needing the python library pycipher to use the built in function `Gronsfeld`
+
+```python
+import pycipher
+msg = pycipher.Gronsfeld([1,2,3,4,5]).decipher('OQWKWPUVMYTIUSSTHHPI')
+```
+giving the flag `noob{NOTGROSSITSGRONSFELD}`
