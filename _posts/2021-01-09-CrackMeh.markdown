@@ -1,0 +1,58 @@
+---
+title:  "CrackMeh"
+date:   2021-04-11 11:03:53
+categories: [NoobCTF-0x1]
+tags: [ctf,crypto]
+---
+
+```
+3lli0t found a diary from Evil Corp. He have to get into the system, but can't as he have a hash of a password and no plaintext. Help him to get into system.
+
+flag format: noob{plaintext}
+
+hash: 4ee805f9397a1d584ef9be9d2a4f8f20
+
+Author: D3v1LaL
+```
+given a file called `diary.txt`
+
+```
+_________________________
+|                       |
+|                       |
+|                       |
+|         Alice         |
+|        January        |
+|         1994          |
+|         USA           |
+|          25           |
+|       Security        |
+|                       |
+|                       |
+|_______________________|
+```
+
+using the MD5 hash we we iterate through all possible permutations to determine the flag
+
+```python
+from itertools import permutations
+import hashlib
+
+def checked(inc, data):
+    for data in permutations(data, inc):
+        temp = bytes(''.join((data)), 'utf-8')
+        m = hashlib.md5()
+        m.update(temp)
+        result = m.hexdigest()
+        if result == hashed:
+            print(f'FOUND : {result} -> {temp}')
+            return True
+    return False
+
+hashed = '4ee805f9397a1d584ef9be9d2a4f8f20'
+data = ['Alice', 'January', '1994', 'USA', '25', 'Security']
+for cnt in range(1, len(data)+1):
+    if checked(cnt, data):
+        exit()
+```
+giving the flag `noob{AliceSecurity1994}`
