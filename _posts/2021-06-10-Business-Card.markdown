@@ -23,32 +23,32 @@ I2C(future interface with micro controller?)
 
 <h2>Antenna Design</h2>
 
-[frequency formula](/images/business_card/form.gif)
+![frequency formula](/images/business_card/form.gif)
 we can assume the capacitance level of 50 pF as given by the data sheet under 13. Characteristics
-[final](/images/business_card/fin.png)
+![final](/images/business_card/fin.png)
 giving us a value of 2.75 μH needed for the antenna
 at this point antenna design is a bit beyond myself so i used [ST][ant] to finish the design
 
 <h2>Eagle Design</h2>
 
-[chipper](/images/business_card/chip.png)
+![chipper](/images/business_card/chip.png)
 Thankfully the footprint for the [NT3H1101W0FHKH][nfc] was already completed online.
 
-[anten](/images/business_card/antenna.png)
+![anten](/images/business_card/antenna.png)
 completed through the linked tool earlier.
 
 and for the unique traces on the card [GF Williams][gf] made a amazingly useful tool available online
-[eagle](/images/business_card/eagle.png)
-[render](/images/business_card/render.png)
+![eagle](/images/business_card/eagle.png)
+![render](/images/business_card/render.png)
 
 <h2>Manufacturing</h2>
 
-[me](/images/business_card/jlc.png)
+![me](/images/business_card/jlc.png)
 
 <h2>Final Product</h2>
 
-[front](/images/business_card/front.jpeg)
-[back](/images/business_card/back.jpeg)
+![front](/images/business_card/front.jpeg)
+![back](/images/business_card/back.jpeg)
 
 [gf]: https://gfwilliams.github.io/svgtoeagle/
 [ant]: https://eds.st.com/antenna/#/
