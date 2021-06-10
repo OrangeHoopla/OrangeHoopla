@@ -1,0 +1,23 @@
+---
+title:  "BASEd"
+date:   2021-04-11 17:03:53
+categories: [NoobCTF-0x1]
+tags: [ctf,crypto]
+---
+decoding non base 64 based strings
+```
+A Simple Crypto Based Challenge. Combination of 2 bases :)
+
+Cipher: 1c@^(9l;sa2c3Ln20_Mf<&&Vs<r
+
+Author: D3v1LaL
+
+```
+you have to decode from base 85 then decode from base 58
+
+```bash
+
+
+```
+
+giving the flag `noob{base58_85}`
