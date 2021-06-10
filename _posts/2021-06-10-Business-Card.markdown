@@ -47,8 +47,8 @@ and for the unique traces on the card [GF Williams][gf] made a amazingly useful 
 
 <h2>Final Product</h2>
 
-![front](/images/business_card/front.jpeg)
-![back](/images/business_card/back.jpeg)
+![front](/images/business_card/front.jpg)
+![back](/images/business_card/back.jpg)
 
 [gf]: https://gfwilliams.github.io/svgtoeagle/
 [ant]: https://eds.st.com/antenna/#/
