@@ -1,0 +1,61 @@
+---
+title:  "LED Cube"
+date:   2021-08-14
+categories: [LED Cube]
+tags: [pcb]
+---
+<h2>LED Cube BOF</h2>
+- capability to 3D print a frame
+- ESP8266
+- [Pixel Panel Matrix][lin1]
+- Hot Glue
+
+
+
+<h2>Pixel Panel Matrix</h2>
+
+![something you should be seeing](/images/led_cube/panel.gif)
+ 
+ This is the panel composed of 8x8 [WS2812B][lin2]
+ Which are micro controllers with their own control mechanism's
+
+ ![bit](/images/led_cube/timing.png)
+
+the notable thing being that a 0 bit is denoted by a slightly longer with T0H = 0.4 us with a give of 150 ns
+and T0L = 0.85 us with the same give
+
+these LEDs are then Daisy Chained in order to create a strip or in our case matrix of addressable LEDs
+![daisy](/images/led_cube/daisy.png)
+
+the most important aspect of this is that bits in transmission between WS2812B LEDs is that every 24 bits tell the value of led which if any other bits are transmitted they will be pushed to the next WS2812B
+![tran](/images/led_cube/trans.png)
+
+until all this bits are gone, So the amount of bits needing to change every LED in any chain in roughly a second would be  1.2 * 24 * 50000 * 10^(-6) which for most projects is fine considering you will not have in excess of 50,000 LEDs in one strip
+
+The composition of the RBG is GRB with MSB -> LSB. denoted in the documentation sheet
+![comp](/images/led_cube/comp.png)
+
+Thankfully I did not have to right the library for this as others were kind enough to leave the real work of this project opensource.
+
+
+
+
+
+<h2>Coming Together</h2>
+The final product in terms of construction
+![something you should be seeing](/images/led_cube/name.gif)
+
+If you want the code to the project [here you go][lin3]
+
+<h2>Issues</h2>
+![blue](/images/led_cube/cube.jpg)
+- wiring
+
+	the main thing is that I have all of the power coming to this device from a 9v battery being stepped down to both 5v and 3.3v for the ESP8266 which cannot 
+- need for this to be ESP8266
+
+	incorporating this into wifi still hasn't seen a needed use yet. Maybe in the future I can have this connected to a website that individuals can send text to me or possibly an alarm system about the metro or something along those lines.
+
+[lin1]:	https://www.aliexpress.com/item/33055639145.html?spm=a2g0s.9042311.0.0.6f7e4c4dp4JIIO
+[lin2]: https://www.mouser.com/pdfDocs/WS2812B-2020_V10_EN_181106150240761.pdf
+[lin3]: https://gist.github.com/OrangeHoopla/91dc207c56154097df506314a2106957
