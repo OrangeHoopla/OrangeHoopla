@@ -1193,7 +1193,7 @@ hr {
 	margin: 0 0 5px 0;
 	font-size: 2.5em;
 	letter-spacing: 4px;
-	color: #FFF; }
+	color: #000; }
 
 .panel-subtitle {
 	font-family: "Roboto Slab", serif;
@@ -1272,10 +1272,10 @@ hr {
 .panel-inverted {
 	font-weight: 100;
 	text-align: center;
-	color: #FFF;
+	color: #000;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); }
 	.panel-inverted a {
-		color: #FFF; }
+		color: #000; }
 
 .cover-navigation {
 	margin-top: 10px; }
@@ -1380,11 +1380,11 @@ nav {
 	.navigation__item a {
 		display: block;
 		position: relative;
-		border-color: #FFF;
-		color: #FFF;
+		border-color: #000;
+		color: #000;
 		opacity: .8; }
 		.navigation__item a:hover {
-			color: #FFF;
+			color: #D9D9D9;
 			border-color: #FFF;
 			opacity: 1; }
 
